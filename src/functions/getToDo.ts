@@ -7,30 +7,19 @@ export const handle: APIGatewayProxyHandler = async (event) => {
     const { id } = event.pathParameters;
 
     const response = await document.query({
-        TableName: "users_certificates",
+        TableName: "todos_user",
         KeyConditionExpression: "id = :id",
         ExpressionAttributeValues: {
             ":id": id
         }
     }).promise();
 
-    const userCertificate = response.Items[0];
-
-    if (userCertificate){
-        return {
-            statusCode: 200,
-            body: JSON.stringify({
-                message: "Certificado válido",
-                name: userCertificate.name,
-                url: `${process.env.URL_CERTIFICATE}${id}.pdf`
-            }),
-        };
-    }
+    const userToDos = response.Items;
 
     return {
-        statusCode: 400,
+        statusCode: 200,
         body: JSON.stringify({
-            message: "Certificado inválido!",
+            userToDos
         }),
     };
 }

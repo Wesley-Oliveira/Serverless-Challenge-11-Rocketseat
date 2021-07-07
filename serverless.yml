@@ -46,7 +46,7 @@ functions:
         Action:
           - dynamodb:Query
           - dynamodb:PutItem
-        Resource: "arn:aws:dynamodb:${self.provider.region}:*:table/users_certificates"
+        Resource: "arn:aws:dynamodb:${self.provider.region}:*:table/todos_user"
   getToDo:
     handler: src/functions/getToDo.handle
     events:
